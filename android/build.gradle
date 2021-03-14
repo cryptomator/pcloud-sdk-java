@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+apply from: file('../dependencies.gradle')
 
 buildscript {
     repositories {
@@ -22,12 +23,7 @@ buildscript {
         google()
         maven { url "https://plugins.gradle.org/m2" }
     }
-    dependencies {
-        classpath dep.androidPlugin
-    }
 }
-
-apply from: rootProject.file('publishing.gradle')
 
 ext {
     description = "The official Android SDK for integration with pCloud's API."
@@ -38,17 +34,8 @@ ext {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode = Long.parseLong(getPublishProperty('versionCode'))
-        versionName getPublishProperty('versionName')
-
         testInstrumentationRunner dep.testInstrumentationRunner
-
     }
     buildTypes {
         release {
@@ -61,6 +48,3 @@ android {
 dependencies {
     implementation dep.supportAnnotations
 }
-
-apply from: '../bintray.gradle'
-apply from: '../maven-pom.gradle'

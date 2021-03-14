@@ -15,6 +15,7 @@ ext {
             supportAnnotations   : "androidx.annotation:annotation:1.1.0",
 
             okhttp3 : "com.squareup.okhttp3:okhttp:3.12.12",
+			okio : "com.squareup.okio:okio:2.10.0",
             gson : "com.google.code.gson:gson:2.8.6",
 
             // Test dependencies
