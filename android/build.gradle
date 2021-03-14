@@ -16,6 +16,8 @@
 
 apply from: file('../dependencies.gradle')
 
+def globalConfiguration = rootProject.extensions.getByName("ext")
+
 buildscript {
     repositories {
         mavenCentral()
@@ -36,6 +38,10 @@ apply plugin: 'com.android.library'
 android {
     defaultConfig {
         testInstrumentationRunner dep.testInstrumentationRunner
+
+		compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+		buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
     }
     buildTypes {
         release {
