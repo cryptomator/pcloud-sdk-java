@@ -153,17 +153,20 @@ class RealApiClient implements ApiClient {
 
     @Override
     public Call<RemoteFolder> listFolder(long folderId, boolean recursively) {
-        return newCall(createListFolderRequest(folderId, recursively, true), new ResponseAdapter<RemoteFolder>() {
-            @Override
-            public RemoteFolder adapt(Response response) throws IOException, ApiError {
-                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
-            }
-        });
-    }
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("listfolder")
+                .addQueryParameter("folderid", String.valueOf(folderId))
+                .addQueryParameter("noshares", String.valueOf(1));
+        if (recursively) {
+            urlBuilder.addEncodedQueryParameter("recursive", String.valueOf(1));
+        }
 
-    @Override
-    public Call<RemoteFolder> listFolder(long folderId, boolean recursively, boolean noshares) {
-        return newCall(createListFolderRequest(folderId, recursively, noshares), new ResponseAdapter<RemoteFolder>() {
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
             @Override
             public RemoteFolder adapt(Response response) throws IOException, ApiError {
                 return getAsApiResponse(response, GetFolderResponse.class).getFolder();
@@ -178,17 +181,21 @@ class RealApiClient implements ApiClient {
 
     @Override
     public Call<RemoteFolder> listFolder(String path, boolean recursively) {
-        return newCall(createListFolderRequest(path, recursively, true), new ResponseAdapter<RemoteFolder>() {
-            @Override
-            public RemoteFolder adapt(Response response) throws IOException, ApiError {
-                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
-            }
-        });
-    }
 
-    @Override
-    public Call<RemoteFolder> listFolder(String path, boolean recursively, boolean noshares) {
-        return newCall(createListFolderRequest(path, recursively, noshares), new ResponseAdapter<RemoteFolder>() {
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("listfolder")
+                .addEncodedQueryParameter("path", String.valueOf(path))
+                .addQueryParameter("noshares", String.valueOf(1));
+        if (recursively) {
+            urlBuilder.addEncodedQueryParameter("recursive", String.valueOf(1));
+        }
+
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
             @Override
             public RemoteFolder adapt(Response response) throws IOException, ApiError {
                 return getAsApiResponse(response, GetFolderResponse.class).getFolder();
@@ -243,7 +250,7 @@ class RealApiClient implements ApiClient {
             throw new IllegalArgumentException("File data cannot be null.");
         }
 
-        if(uploadOptions == null) {
+        if (uploadOptions == null) {
             throw new IllegalArgumentException("Upload options cannot be null.");
         }
 
@@ -632,8 +639,17 @@ class RealApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFile> stat(long fileId) {
-        return newCall(createStatRequest(fileId), new ResponseAdapter<RemoteFile>() {
+    public Call<RemoteFile> loadFile(long fileId) {
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("stat")
+                .addQueryParameter("fileid", String.valueOf(fileId));
+
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFile>() {
             @Override
             public RemoteFile adapt(Response response) throws IOException, ApiError {
                 return getAsApiResponse(response, GetFileResponse.class).getFile();
@@ -642,11 +658,63 @@ class RealApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFile> stat(String path) {
-        return newCall(createStatRequest(path), new ResponseAdapter<RemoteFile>() {
+    public Call<RemoteFile> loadFile(String path) {
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("stat")
+                .addEncodedQueryParameter("path", String.valueOf(path));
+
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFile>() {
             @Override
             public RemoteFile adapt(Response response) throws IOException, ApiError {
                 return getAsApiResponse(response, GetFileResponse.class).getFile();
+            }
+        });
+    }
+
+    @Override
+    public Call<RemoteFolder> loadFolder(long folderId) {
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("listfolder")
+                .addQueryParameter("folderid", String.valueOf(folderId))
+                .addQueryParameter("noshares", String.valueOf(1))
+                .addQueryParameter("nofiles", String.valueOf(1));
+
+
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
+            @Override
+            public RemoteFolder adapt(Response response) throws IOException, ApiError {
+                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
+            }
+        });
+    }
+
+    @Override
+    public Call<RemoteFolder> loadFolder(String path) {
+        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
+                .addPathSegment("listfolder")
+                .addQueryParameter("path", path)
+                .addQueryParameter("noshares", String.valueOf(1))
+                .addQueryParameter("nofiles", String.valueOf(1));
+
+        Request request = newRequest()
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
+            @Override
+            public RemoteFolder adapt(Response response) throws IOException, ApiError {
+                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
             }
         });
     }
@@ -733,25 +801,24 @@ class RealApiClient implements ApiClient {
         if (folderName == null) {
             throw new IllegalArgumentException("Folder name is null");
         }
-        return newCall(createFolderRequest(parentFolderId, folderName), new ResponseAdapter<RemoteFolder>() {
-            @Override
-            public RemoteFolder adapt(Response response) throws IOException, ApiError {
-                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
-            }
-        });
-    }
 
-    private Request createFolderRequest(long parentFolderId, String folderName) {
         RequestBody body = new FormBody.Builder()
                 .add("folderid", String.valueOf(parentFolderId))
                 .add("name", folderName)
                 .build();
 
-        return newRequest()
+        Request request = newRequest()
                 .url(apiHost.newBuilder()
                         .addPathSegment("createfolder").build())
                 .post(body)
                 .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
+            @Override
+            public RemoteFolder adapt(Response response) throws IOException, ApiError {
+                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
+            }
+        });
     }
 
     @Override
@@ -810,26 +877,25 @@ class RealApiClient implements ApiClient {
         if (newFolderName == null) {
             throw new IllegalArgumentException("Folder name is null");
         }
-        return newCall(createRenameFolderRequest(folderId, newFolderName), new ResponseAdapter<RemoteFolder>() {
-            @Override
-            public RemoteFolder adapt(Response response) throws IOException, ApiError {
-                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
-            }
-        });
-    }
 
-    private Request createRenameFolderRequest(long folderId, String newFolderName) {
         RequestBody body = new FormBody.Builder()
                 .add("folderid", String.valueOf(folderId))
                 .add("toname", newFolderName)
                 .build();
 
-        return newRequest()
+        Request request = newRequest()
                 .url(apiHost.newBuilder()
                         .addPathSegment("renamefolder")
                         .build())
                 .post(body)
                 .build();
+
+        return newCall(request, new ResponseAdapter<RemoteFolder>() {
+            @Override
+            public RemoteFolder adapt(Response response) throws IOException, ApiError {
+                return getAsApiResponse(response, GetFolderResponse.class).getFolder();
+            }
+        });
     }
 
     @Override
@@ -994,62 +1060,6 @@ class RealApiClient implements ApiClient {
 
     private Request.Builder newRequest() {
         return new Request.Builder().url(apiHost);
-    }
-
-    private Request createListFolderRequest(long folderId, boolean recursive, boolean noshares) {
-        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
-                .addPathSegment("listfolder")
-                .addQueryParameter("folderid", String.valueOf(folderId));
-
-        if (noshares) {
-            urlBuilder.addEncodedQueryParameter("noshares", String.valueOf(1));
-        }
-
-        if (recursive) {
-            urlBuilder.addEncodedQueryParameter("recursive", String.valueOf(1));
-        }
-
-        return newRequest()
-                .url(urlBuilder.build())
-                .get()
-                .build();
-    }
-
-    private Request createListFolderRequest(String path, boolean recursive, boolean noshares) {
-        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
-                .addPathSegment("listfolder")
-                .addEncodedQueryParameter("path", String.valueOf(path))
-                .addQueryParameter("noshares", noshares ? String.valueOf(1) : String.valueOf(0));
-        if (recursive) {
-            urlBuilder.addEncodedQueryParameter("recursive", String.valueOf(1));
-        }
-
-        return newRequest()
-                .url(urlBuilder.build())
-                .get()
-                .build();
-    }
-
-    private Request createStatRequest(long fileId) {
-        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
-                .addPathSegment("stat")
-                .addQueryParameter("fileid", String.valueOf(fileId));
-
-        return newRequest()
-                .url(urlBuilder.build())
-                .get()
-                .build();
-    }
-
-    private Request createStatRequest(String path) {
-        HttpUrl.Builder urlBuilder = apiHost.newBuilder()
-                .addPathSegment("stat")
-                .addEncodedQueryParameter("path", String.valueOf(path));
-
-        return newRequest()
-                .url(urlBuilder.build())
-                .get()
-                .build();
     }
 
     private <T> Call<T> newCall(Request request, ResponseAdapter<T> adapter) {

@@ -80,20 +80,6 @@ public interface ApiClient {
     /**
      * Load a specified folder.
      * <p>
-     * Loads the metadata about the folder with the provided folder id.
-     * <p>
-     * For more information, see the related <a href="https://docs.pcloud.com/methods/folder/listfolder.html" target="_blank">documentation page</a>.
-     *
-     * @param folderId    target folder id
-     * @param recursively if true, a full folder tree will be returned, otherwise the resulting {@linkplain RemoteFolder folder} will contain only its direct children
-     * @param noshares    if false, the folder tree will also include shared files and folders, otherwise resulting {@linkplain RemoteFolder folder} will contain only childer owned by the user
-     * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested folder id.
-     */
-    Call<RemoteFolder> listFolder(long folderId, boolean recursively, boolean noshares);
-
-    /**
-     * Load a specified folder.
-     * <p>
      * Same as calling {@link #listFolder(long, boolean)} )} with {@code recursive} set to false.
      * <p>
      * For more information, see the related <a href="https://docs.pcloud.com/methods/folder/listfolder.html" target="_blank">documentation page</a>
@@ -110,25 +96,11 @@ public interface ApiClient {
      * <p>
      * For more information, see the related <a href="https://docs.pcloud.com/methods/folder/listfolder.html" target="_blank">documentation page</a>.
      *
-     * @param path        target folder path
+     * @param path    target folder path
      * @param recursively if true, a full folder tree will be returned, otherwise the resulting {@linkplain RemoteFolder folder} will contain only its direct children
      * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested fodler id.
      */
     Call<RemoteFolder> listFolder(String path, boolean recursively);
-
-    /**
-     * Load a specified folder.
-     * <p>
-     * Loads the metadata about the folder with the provided folder id.
-     * <p>
-     * For more information, see the related <a href="https://docs.pcloud.com/methods/folder/listfolder.html" target="_blank">documentation page</a>.
-     *
-     * @param path    target folder path
-     * @param recursively if true, a full folder tree will be returned, otherwise the resulting {@linkplain RemoteFolder folder} will contain only its direct children
-     * @param noshares    if false, the folder tree will also include shared files and folders, otherwise resulting {@linkplain RemoteFolder folder} will contain only childer owned by the user
-     * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested folder id.
-     */
-    Call<RemoteFolder> listFolder(String path, boolean recursively, boolean noshares);
 
     /**
      * Create a new folder.
@@ -862,26 +834,50 @@ public interface ApiClient {
     /**
      * Load a specific file.
      * <p>
-     * Loads the metadata about the file with the provided {@code fileId).
+     * Loads the metadata about the file with the provided {@code fileId}.
      * <p>
      * For more information, see the related <a href="https://docs.pcloud.com/methods/file/stat.html" target="_blank">documentation page</a>.
      *
-     * @param fileId     target file id.
+     * @param fileId target file id.
      * @return {@link Call} resulting in a {@link RemoteFile} instance holding the metadata for the requested file id.
      */
-    Call<RemoteFile> stat(long fileId);
+    Call<RemoteFile> loadFile(long fileId);
 
     /**
      * Load a specific file.
      * <p>
-     * Loads the metadata about the file with the provided {@code path).
+     * Loads the metadata about the file with the provided {@code path}.
      * <p>
      * For more information, see the related <a href="https://docs.pcloud.com/methods/file/stat.html" target="_blank">documentation page</a>.
      *
-     * @param path     target file path.
+     * @param path target file path.
      * @return {@link Call} resulting in a {@link RemoteFile} instance holding the metadata for the requested path.
      */
-    Call<RemoteFile> stat(String path);
+    Call<RemoteFile> loadFile(String path);
+
+    /**
+     * Load a specific folder.
+     * <p>
+     * Loads the metadata about the folder with the provided {@code folderId}.
+     * <p>
+     * For more information, see the related <a href="https://docs.pcloud.com/methods/file/listfolder.html" target="_blank">documentation page</a>.
+     *
+     * @param folderId target folder id.
+     * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested folder id.
+     */
+    Call<RemoteFolder> loadFolder(long folderId);
+
+    /**
+     * Load a specific folder.
+     * <p>
+     * Loads the metadata about the folder with the provided {@code path}.
+     * <p>
+     * For more information, see the related <a href="https://docs.pcloud.com/methods/file/listfolder.html" target="_blank">documentation page</a>.
+     *
+     * @param path target folder path.
+     * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested path.
+     */
+    Call<RemoteFolder> loadFolder(String path);
 
     /**
      * Move a specified file.
