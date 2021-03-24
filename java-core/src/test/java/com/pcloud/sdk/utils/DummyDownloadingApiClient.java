@@ -140,21 +140,6 @@ public class DummyDownloadingApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFolder> moveFolder(long folderId, long toFolderId, String toName) {
-        return null;
-    }
-
-    @Override
-    public Call<RemoteFolder> moveFolder(RemoteFolder folder, RemoteFolder toFolder, String toName) {
-        return null;
-    }
-
-    @Override
-    public Call<RemoteFolder> moveFolder(String path, String toPath, String toName) {
-        return null;
-    }
-
-    @Override
     public Call<RemoteFolder> copyFolder(long folderId, long toFolderId) {
         return null;
     }
@@ -356,21 +341,6 @@ public class DummyDownloadingApiClient implements ApiClient {
 
     @Override
     public Call<RemoteFile> moveFile(String path, String toPath) {
-        return null;
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(long fileId, long toFolderId, String toName) {
-        return null;
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(RemoteFile file, RemoteFolder toFolder, String toName) {
-        return null;
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(String path, String toPath, String toName) {
         return null;
     }
 
