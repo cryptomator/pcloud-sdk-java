@@ -712,30 +712,10 @@ class RealApiClient implements ApiClient {
 
     @Override
     public Call<RemoteFile> moveFile(long fileId, long toFolderId) {
-        return moveFile(fileId, toFolderId, null);
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(RemoteFile file, RemoteFolder toFolder) {
-        return moveFile(file, toFolder, null);
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(String path, String toPath) {
-        return moveFile(path, toPath, null);
-    }
-
-    @Override
-    public Call<RemoteFile> moveFile(long fileId, long toFolderId, String toName) {
-        FormBody.Builder builder = new FormBody.Builder()
+        RequestBody body = new FormBody.Builder()
                 .add("fileid", String.valueOf(fileId))
-                .add("tofolderid", String.valueOf(toFolderId));
-
-        if(toName != null) {
-            builder.add("toname", toName);
-        }
-
-        RequestBody body = builder.build();
+                .add("tofolderid", String.valueOf(toFolderId))
+                .build();
 
         Request request = newRequest()
                 .url(apiHost.newBuilder()
@@ -753,7 +733,7 @@ class RealApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFile> moveFile(RemoteFile file, RemoteFolder toFolder, String toName) {
+    public Call<RemoteFile> moveFile(RemoteFile file, RemoteFolder toFolder) {
         if (file == null) {
             throw new IllegalArgumentException("file argument cannot be null.");
         }
@@ -761,20 +741,15 @@ class RealApiClient implements ApiClient {
             throw new IllegalArgumentException("toFolder argument cannot be null.");
         }
 
-        return moveFile(file.fileId(), toFolder.folderId(), toName);
+        return moveFile(file.fileId(), toFolder.folderId());
     }
 
     @Override
-    public Call<RemoteFile> moveFile(String path, String toPath, String toName) {
-        FormBody.Builder builder = new FormBody.Builder()
+    public Call<RemoteFile> moveFile(String path, String toPath) {
+        RequestBody body = new FormBody.Builder()
                 .addEncoded("path", path)
-                .addEncoded("topath", toPath);
-
-        if(toName != null) {
-            builder.add("toname", toName);
-        }
-
-        RequestBody body = builder.build();
+                .addEncoded("topath", toPath)
+                .build();
 
         Request request = newRequest()
                 .url(apiHost.newBuilder()
@@ -937,39 +912,19 @@ class RealApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFolder> moveFolder(long folderId, long toFolderId) {
-        return moveFolder(folderId, toFolderId, null);
-    }
-
-    @Override
-    public Call<RemoteFolder> moveFolder(String path, String toPath) {
-        return moveFolder(path, toPath, null);
-    }
-
-    @Override
     public Call<RemoteFolder> moveFolder(RemoteFolder folder, RemoteFolder toFolder) {
-        return moveFolder(folder, toFolder, null);
-    }
-
-    @Override
-    public Call<RemoteFolder> moveFolder(RemoteFolder folder, RemoteFolder toFolder, String toName) {
         if (folder == null || toFolder == null) {
             throw new IllegalArgumentException("folder argument cannot be null.");
         }
-        return moveFolder(folder.folderId(), toFolder.folderId(), toName);
+        return moveFolder(folder.folderId(), toFolder.folderId());
     }
 
     @Override
-    public Call<RemoteFolder> moveFolder(long folderId, long toFolderId, String toName) {
-        FormBody.Builder builder = new FormBody.Builder()
+    public Call<RemoteFolder> moveFolder(long folderId, long toFolderId) {
+        RequestBody body = new FormBody.Builder()
                 .add("folderid", String.valueOf(folderId))
-                .add("tofolderid", String.valueOf(toFolderId));
-
-        if(toName != null) {
-            builder.add("toname", toName);
-        }
-
-        RequestBody body = builder.build() ;
+                .add("tofolderid", String.valueOf(toFolderId))
+                .build();
 
         Request request = newRequest()
                 .url(apiHost.newBuilder()
@@ -987,16 +942,11 @@ class RealApiClient implements ApiClient {
     }
 
     @Override
-    public Call<RemoteFolder> moveFolder(String path, String toPath, String toName) {
-        FormBody.Builder builder = new FormBody.Builder()
+    public Call<RemoteFolder> moveFolder(String path, String toPath) {
+        RequestBody body = new FormBody.Builder()
                 .addEncoded("path", path)
-                .addEncoded("topath", toPath);
-
-        if(toName != null) {
-            builder.add("toname", toName);
-        }
-
-        RequestBody body = builder.build() ;
+                .addEncoded("topath", toPath)
+                .build();
 
         Request request = newRequest()
                 .url(apiHost.newBuilder()
