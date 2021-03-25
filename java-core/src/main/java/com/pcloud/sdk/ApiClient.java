@@ -86,6 +86,7 @@ public interface ApiClient {
      *
      * @param path {@link RemoteFolder} path
      * @return {@link Call}
+     * @throws IllegalArgumentException on a null {@code path} argument.
      */
     Call<RemoteFolder> listFolder(String path);
 
@@ -99,6 +100,7 @@ public interface ApiClient {
      * @param path    target folder path
      * @param recursively if true, a full folder tree will be returned, otherwise the resulting {@linkplain RemoteFolder folder} will contain only its direct children
      * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested fodler id.
+     * @throws IllegalArgumentException on a null {@code path} argument.
      */
     Call<RemoteFolder> listFolder(String path, boolean recursively);
 
@@ -128,17 +130,15 @@ public interface ApiClient {
     Call<RemoteFolder> createFolder(RemoteFolder parentFolder, String folderName);
 
     /**
-     * Create a folder.
-     * <p>
-     * Same as calling {@link #createFolder(long, String)} with {@code parentFolderId} taken from {@linkplain RemoteFolder#folderId()}.
+     * Create a new folder.
+     * <p>Create a new folder in the specified folder</p>
+     * <p>For more information, see the related <a href="https://docs.pcloud.com/methods/folder/createfolder.html" target="_blank">documentation page</a>.</p>
      *
-     * @param path       The path of the parent folder for the newly created folder
-     * @param folderName The new folder name
-     * @return {@link Call}
+     * @param path       The complete path of the new folder
+     * @return {@link Call} resulting in the metadata for the new folder
      * @throws IllegalArgumentException on a null {@code path} argument.
-     * @throws IllegalArgumentException on a null {@code folderName} argument.
      */
-    Call<RemoteFolder> createFolder(String path, String folderName);
+    Call<RemoteFolder> createFolder(String path);
 
     /**
      * Delete a specified folder recursively.
@@ -204,6 +204,7 @@ public interface ApiClient {
      * @param recursively If set to {@code true} all child files will also be deleted.
      *                    <p>If set to {@code false}, the operation will fail on any non-empty folder
      * @return {@link Call} resulting in true if the operation is successful, or false otherwise
+     * @throws IllegalArgumentException on a null {@code path} argument.
      */
     Call<Boolean> deleteFolder(String path, boolean recursively);
 
@@ -249,16 +250,6 @@ public interface ApiClient {
 
     /**
      * Change a specified folder's parent.
-     * <p>For more information, see the related <a href="https://docs.pcloud.com/methods/folder/renamefolder.html" target="_blank">documentation page</a>.</p>
-     *
-     * @param path   The path of the folder you would like to move
-     * @param toPath The path of the new parent folder
-     * @return {@link Call} resulting in the moved folder's metadata.
-     */
-    Call<RemoteFolder> moveFolder(String path, String toPath);
-
-    /**
-     * Change a specified folder's parent.
      *
      * @param folder   The {@link RemoteFolder} you would like to move. Must not be null.
      * @param toFolder The new parent {@link RemoteFolder}. Must not be null.
@@ -268,6 +259,18 @@ public interface ApiClient {
      * @see #moveFolder(long, long) #moveFolder(long, long)
      */
     Call<RemoteFolder> moveFolder(RemoteFolder folder, RemoteFolder toFolder);
+
+    /**
+     * Change a specified folder's parent.
+     * <p>For more information, see the related <a href="https://docs.pcloud.com/methods/folder/renamefolder.html" target="_blank">documentation page</a>.</p>
+     *
+     * @param path   The path of the folder you would like to move
+     * @param toPath The path of the new parent folder
+     * @return {@link Call} resulting in the moved folder's metadata.
+     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null {@code toPath} argument.
+     */
+    Call<RemoteFolder> moveFolder(String path, String toPath);
 
     /**
      * Copy specified folder.
@@ -1041,6 +1044,7 @@ public interface ApiClient {
      *
      * @param path target file path.
      * @return {@link Call} resulting in a {@link RemoteFile} instance holding the metadata for the requested path.
+     * @throws IllegalArgumentException on a null {@code path} argument.
      */
     Call<RemoteFile> loadFile(String path);
 
@@ -1065,6 +1069,7 @@ public interface ApiClient {
      *
      * @param path target folder path.
      * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested path.
+     * @throws IllegalArgumentException on a null {@code path} argument.
      */
     Call<RemoteFolder> loadFolder(String path);
 
@@ -1107,6 +1112,8 @@ public interface ApiClient {
      * @param path     The path of the file to be moved.
      * @param toPath   The path of the folder where the file will be moved.
      * @return {@link Call} resulting in the metadata of the moved file
+     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null {@code toPath} argument.
      */
     Call<RemoteFile> moveFile(String path, String toPath);
 
