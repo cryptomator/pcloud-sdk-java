@@ -25,9 +25,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.webkit.CookieManager;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -270,6 +272,19 @@ public final class AuthorizationActivity extends Activity {
         ws.setJavaScriptEnabled(true);
         ws.setDomStorageEnabled(true);
         ws.setJavaScriptCanOpenWindowsAutomatically(true);
+
+		WebStorage.getInstance().deleteAllData();
+		//Make sure No cookies are created
+		CookieManager.getInstance().setAcceptCookie(false);
+		//Make sure no caching is done
+		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		webView.getSettings().setAppCacheEnabled(false);
+		webView.clearHistory();
+		webView.clearCache(true);
+		//Make sure no autofill for Forms/ user-name password happens for the app
+		webView.clearFormData();
+		webView.getSettings().setSavePassword(false);
+		webView.getSettings().setSaveFormData(false);
 
         if (savedInstanceState == null) {
             webView.loadUrl(buildAuthorizePageUri(request).toString());
