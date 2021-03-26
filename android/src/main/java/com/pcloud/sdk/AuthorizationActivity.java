@@ -274,8 +274,7 @@ public final class AuthorizationActivity extends Activity {
         ws.setJavaScriptCanOpenWindowsAutomatically(true);
 
 		WebStorage.getInstance().deleteAllData();
-		//Make sure No cookies are created
-		CookieManager.getInstance().setAcceptCookie(false);
+		CookieManager.getInstance().removeAllCookie();
 		//Make sure no caching is done
 		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		webView.getSettings().setAppCacheEnabled(false);
