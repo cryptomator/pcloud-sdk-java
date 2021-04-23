@@ -86,7 +86,7 @@ public interface ApiClient {
      *
      * @param path {@link RemoteFolder} path
      * @return {@link Call}
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFolder> listFolder(String path);
 
@@ -100,7 +100,7 @@ public interface ApiClient {
      * @param path    target folder path
      * @param recursively if true, a full folder tree will be returned, otherwise the resulting {@linkplain RemoteFolder folder} will contain only its direct children
      * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested fodler id.
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFolder> listFolder(String path, boolean recursively);
 
@@ -112,7 +112,7 @@ public interface ApiClient {
      * @param parentFolderId The id of the parent folder for the newly created folder
      * @param folderName     The new folder name
      * @return {@link Call} resulting in the metadata for the new folder
-     * @throws IllegalArgumentException on a null {@code folderName} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFolder> createFolder(long parentFolderId, String folderName);
 
@@ -134,9 +134,9 @@ public interface ApiClient {
      * <p>Create a new folder in the specified folder</p>
      * <p>For more information, see the related <a href="https://docs.pcloud.com/methods/folder/createfolder.html" target="_blank">documentation page</a>.</p>
      *
-     * @param path       The complete path of the new folder
+     * @param path The complete path of the new folder
      * @return {@link Call} resulting in the metadata for the new folder
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFolder> createFolder(String path);
 
@@ -191,7 +191,7 @@ public interface ApiClient {
      *
      * @param path The path of the folder you would like to delete
      * @return {@link Call}
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<Boolean> deleteFolder(String path);
 
@@ -204,7 +204,7 @@ public interface ApiClient {
      * @param recursively If set to {@code true} all child files will also be deleted.
      *                    <p>If set to {@code false}, the operation will fail on any non-empty folder
      * @return {@link Call} resulting in true if the operation is successful, or false otherwise
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<Boolean> deleteFolder(String path, boolean recursively);
 
@@ -267,8 +267,8 @@ public interface ApiClient {
      * @param path   The path of the folder you would like to move
      * @param toPath The path of the new parent folder
      * @return {@link Call} resulting in the moved folder's metadata.
-     * @throws IllegalArgumentException on a null {@code path} argument.
-     * @throws IllegalArgumentException on a null {@code toPath} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code toPath} argument.
      */
     Call<RemoteFolder> moveFolder(String path, String toPath);
 
@@ -525,7 +525,7 @@ public interface ApiClient {
      * @param filename The file name. Must not be null.
      * @param data     {@link DataSource} object providing the file content. Must not be null.
      * @return {@link Call} resulting in the new file's metadata
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      * @throws IllegalArgumentException on a null {@code filename} argument.
      * @throws IllegalArgumentException on a null {@code data} argument.
      * @see #createFile(long, String, DataSource, UploadOptions)
@@ -548,7 +548,7 @@ public interface ApiClient {
      * @param data          {@link DataSource} object providing the file content. Must not be null.
      * @param uploadOptions {@link UploadOptions} to be used for the file creation. Must not be null.
      * @return {@link Call} resulting in the new file's metadata
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      * @throws IllegalArgumentException on a null {@code filename} argument.
      * @throws IllegalArgumentException on a null {@code data} argument.
      * @throws IllegalArgumentException on a null {@code uploadOptions} argument.
@@ -583,7 +583,7 @@ public interface ApiClient {
      * @param modifiedDate The last modification date to be used. If set to {@code null}, the upload date will be used instead.
      * @param listener     The listener to be used to notify about upload progress. If null, no progress will be reported.
      * @return {@link Call} resulting in the new file's metadata
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      * @throws IllegalArgumentException on a null {@code filename} argument.
      * @throws IllegalArgumentException on a null {@code data} argument.
      * @see DataSource
@@ -616,7 +616,7 @@ public interface ApiClient {
      * @param listener      The listener to be used to notify about upload progress. If null, no progress will be reported.
      * @param uploadOptions {@link UploadOptions} to be used for the file creation. Must not be null.
      * @return {@link Call} resulting in the new file's metadata
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      * @throws IllegalArgumentException on a null {@code filename} argument.
      * @throws IllegalArgumentException on a null {@code data} argument.
      * @throws IllegalArgumentException on a null {@code uploadOptions} argument.
@@ -661,7 +661,7 @@ public interface ApiClient {
      *
      * @param path of the file to be deleted
      * @return {@link Call} resulting in true if operation was successful, false otherwise.
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<Boolean> deleteFile(String path);
 
@@ -714,7 +714,7 @@ public interface ApiClient {
      * @param path    the file
      * @param options the options
      * @return {@link Call} resulting in a {@link FileLink}
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      * @throws IllegalArgumentException on a null {@code options} argument.
      * @see DownloadOptions
      * @see FileLink
@@ -1044,7 +1044,7 @@ public interface ApiClient {
      *
      * @param path target file path.
      * @return {@link Call} resulting in a {@link RemoteFile} instance holding the metadata for the requested path.
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFile> loadFile(String path);
 
@@ -1069,7 +1069,7 @@ public interface ApiClient {
      *
      * @param path target folder path.
      * @return {@link Call} resulting in a {@link RemoteFolder} instance holding the metadata for the requested path.
-     * @throws IllegalArgumentException on a null {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
      */
     Call<RemoteFolder> loadFolder(String path);
 
@@ -1112,8 +1112,8 @@ public interface ApiClient {
      * @param path     The path of the file to be moved.
      * @param toPath   The path of the folder where the file will be moved.
      * @return {@link Call} resulting in the metadata of the moved file
-     * @throws IllegalArgumentException on a null {@code path} argument.
-     * @throws IllegalArgumentException on a null {@code toPath} argument.
+     * @throws IllegalArgumentException on a null or empty {@code path} argument.
+     * @throws IllegalArgumentException on a null or empty {@code toPath} argument.
      */
     Call<RemoteFile> moveFile(String path, String toPath);
 
