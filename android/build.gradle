@@ -21,7 +21,6 @@ def globalConfiguration = rootProject.extensions.getByName("ext")
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
         google()
         maven { url "https://plugins.gradle.org/m2" }
     }
@@ -32,7 +31,6 @@ buildscript {
 
 ext {
     description = "The official Android SDK for integration with pCloud's API."
-    bintrayPackage = 'android'
     artifactId = 'android'
 }
 
