@@ -1,0 +1,8 @@
+version: "1"
+rules:                      
+  - base: main
+    upstream: pCloud:master
+    mergeMethod: merge 
+    mergeUnstable: false
+label: ":arrow_heading_down: pull"
+conflictLabel: "merge-conflict"
