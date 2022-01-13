@@ -54,4 +54,6 @@ android {
 
 dependencies {
     implementation dep.supportAnnotations
+    implementation dep.customTabs
+    implementation dep.localBroadcastManager
 }
