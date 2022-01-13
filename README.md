@@ -2,7 +2,7 @@
 
 The official pCloud SDK for Java & Android for integrating with [ pCloud's API][docs].
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.4.0?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.pcloud.sdk%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.5.0?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.pcloud.sdk%22)
 
 ## Requirements
 
@@ -36,7 +36,7 @@ The official pCloud SDK for Java & Android for integrating with [ pCloud's API][
   - Add a description.
   - Add a redirect URI in the `Redirect URIs` field in your application configuration page.
 
-  >The SDK allows users to provide multiple custom Uris or expects the `https://oauth2redirect` Uri to be added in the Application configuration page.
+  >The SDK expects `pcloud-oauth://{your.application.package}` custom Uri to be added in the Application configuration page.
 
   - Optionally add an icon that will be displayed to users upon authorization requests.
   - Turn on the `Allow implicit grant` option.
@@ -53,15 +53,15 @@ Grab via Maven:
 <dependency>
   <groupId>com.pcloud.sdk</groupId>
   <artifactId>java-core</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-implementation 'com.pcloud.sdk:java-core:1.4.0'
+implementation 'com.pcloud.sdk:java-core:1.5.0'
 ```
- [![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.4.0?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/java-core/1.4.0/jar)
+ [![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.5.0?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/java-core/1.5.0/jar)
 
 #### Android
 
@@ -76,15 +76,15 @@ Grab via Maven:
 <dependency>
   <groupId>com.pcloud.sdk</groupId>
   <artifactId>android</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
   <type>pom</type>
 </dependency>
 ```
 or Gradle:
 ```groovy
-implementation 'com.pcloud.sdk:android:1.4.0'
+implementation 'com.pcloud.sdk:android:1.5.0'
 ```
-[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.4.0?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/android/1.4.0/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.5.0?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/android/1.5.0/jar)
 
 
 ## Basics
