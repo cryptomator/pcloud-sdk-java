@@ -12,7 +12,6 @@ buildscript {
         classpath dep.kotlinCompiler
     }
 }
-
 allprojects {
     repositories {
         mavenCentral()
