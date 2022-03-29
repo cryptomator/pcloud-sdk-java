@@ -1,0 +1,93 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply from: rootProject.file('publishing.gradle')
+
+group = project.getPublishProperty('groupId')
+version = project.getPublishProperty('versionName')
+
+def pomXml = {
+    resolveStrategy = Closure.DELEGATE_FIRST
+    name 'pcloud-sdk'
+    description "The official pCloud Java SDK for integration with pCloud's API"
+    url 'https://github.com/pCloud/pcloud-sdk-java'
+    licenses {
+        license {
+            name "The Apache License v2.0"
+            url 'https://github.com/pCloud/pcloud-sdk-java/LICENSE'
+        }
+    }
+    developers {
+        developer {
+            name 'pCloud AG'
+            email 'android@pcloud.com'
+            organization 'pCloud AG'
+            organizationUrl 'https://www.pcloud.com'
+        }
+    }
+
+    scm {
+        connection 'https://github.com/pCloud/pcloud-sdk-java.git'
+        developerConnection 'https://github.com/pCloud/pcloud-sdk-java.git'
+        url 'https://github.com/pCloud/pcloud-sdk-java'
+    }
+}
+
+applyForPlugin("java-library") {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+}
+
+applyForPlugin("com.android.library") {
+    android {
+        publishing {
+            singleVariant("release") {
+                withSourcesJar()
+                withJavadocJar()
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    applyForPlugin("com.android.library") {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId group
+                    version getPublishProperty('versionName')
+
+                    pom.withXml {
+                        asNode().children().last() + pomXml
+                    }
+                }
+            }
+        }
+    }
+
+    applyForPlugin("java-library") {
+        publishing {
+            publications {
+                library(MavenPublication) {
+                    groupId group
+                    version getPublishProperty('versionName')
+                    from components.java
+
+                    pom.withXml {
+                        asNode().children().last() + pomXml
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+signing {
+    def signingKey = System.getenv("SIGNING_KEY")
+    def signingKeyPassword = System.getenv("SIGNING_KEY_PASSWORD")
+    useInMemoryPgpKeys(signingKey, signingKeyPassword)
+    sign publishing.publications
+}
