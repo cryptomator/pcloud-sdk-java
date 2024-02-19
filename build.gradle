@@ -12,6 +12,11 @@ buildscript {
         classpath dep.kotlinCompiler
     }
 }
+
+plugins {
+    id("org.jetbrains.dokka") version "1.6.0"
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -78,4 +83,8 @@ subprojects {
             targetCompatibility = rootProject.ext.targetCompatibilityVersion
         }
     }
+}
+
+tasks.named("dokkaHtmlMultiModule") {
+    outputDirectory.set(file("docs"))
 }
