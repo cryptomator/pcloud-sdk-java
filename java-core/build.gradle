@@ -39,3 +39,5 @@ sourceSets.main.java.srcDirs += file('build/generated/src/main/java')
 ext {
     artifactId = 'java-core'
 }
+
+apply from: '../maven-publish.gradle'

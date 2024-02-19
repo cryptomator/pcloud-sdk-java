@@ -26,6 +26,8 @@ buildscript {
     }
 }
 
+apply from: rootProject.file('publishing.gradle')
+
 ext {
     description = "The official Android SDK for integration with pCloud's API."
     artifactId = 'android'
@@ -42,6 +44,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode = Long.parseLong(getPublishProperty('versionCode'))
+        versionName getPublishProperty('versionName')
         testInstrumentationRunner dep.testInstrumentationRunner
 
     }
@@ -58,3 +62,5 @@ dependencies {
     implementation dep.customTabs
     implementation dep.localBroadcastManager
 }
+
+apply from: '../maven-publish.gradle'
