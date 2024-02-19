@@ -12,6 +12,7 @@ ext {
     dep = [
             androidPlugin        : "com.android.tools.build:gradle:7.2.2",
             androidMavenPlugin   : "com.github.dcendents:android-maven-gradle-plugin:2.1",
+            appcompat            : "androidx.appcompat:appcompat:1.4.1",
 
             kotlinCompiler       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
             kotlinRuntime            : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
