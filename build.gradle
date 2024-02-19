@@ -1,6 +1,6 @@
 buildscript {
 
-    apply from: file('dependencies.gradle')
+    apply from: rootProject.file('dependencies.gradle')
 
     repositories {
         mavenCentral()
