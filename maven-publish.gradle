@@ -1,5 +1,4 @@
 apply plugin: 'maven-publish'
-apply plugin: 'signing'
 apply from: rootProject.file('publishing.gradle')
 
 group = project.getPublishProperty('groupId')
@@ -82,12 +81,4 @@ afterEvaluate {
             }
         }
     }
-}
-
-
-signing {
-    def signingKey = System.getenv("SIGNING_KEY")
-    def signingKeyPassword = System.getenv("SIGNING_KEY_PASSWORD")
-    useInMemoryPgpKeys(signingKey, signingKeyPassword)
-    sign publishing.publications
 }
