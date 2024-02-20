@@ -6,9 +6,9 @@ version = project.getPublishProperty('versionName')
 
 def pomXml = {
     resolveStrategy = Closure.DELEGATE_FIRST
-    name 'pcloud-sdk'
-    description "The official pCloud Java SDK for integration with pCloud's API"
-    url 'https://github.com/pCloud/pcloud-sdk-java'
+    name "Fork of com.pcloud.sdk:${project.getPublishProperty('artifactId')} for Cryptomator for Android"
+    description "Unofficial, unaffiliated and unassociated fork of https://github.com/pCloud/pcloud-sdk-java for internal use in Cryptomator for Android."
+    url 'https://github.com/cryptomator/pcloud-sdk-java'
     licenses {
         license {
             name "The Apache License v2.0"
@@ -17,17 +17,28 @@ def pomXml = {
     }
     developers {
         developer {
+            id 'cryptomator'
+            name 'Cryptomator'
+            url 'https://cryptomator.org/'
+            roles {
+                role 'Maintainer of this fork'
+            }
+        }
+        developer {
             name 'pCloud AG'
             email 'android@pcloud.com'
             organization 'pCloud AG'
             organizationUrl 'https://www.pcloud.com'
+            roles {
+                role 'Maintainer of the forked repository at https://github.com/pCloud/pcloud-sdk-java'
+            }
         }
     }
 
     scm {
-        connection 'https://github.com/pCloud/pcloud-sdk-java.git'
-        developerConnection 'https://github.com/pCloud/pcloud-sdk-java.git'
-        url 'https://github.com/pCloud/pcloud-sdk-java'
+        connection 'https://github.com/cryptomator/pcloud-sdk-java.git'
+        developerConnection 'https://github.com/cryptomator/pcloud-sdk-java.git'
+        url 'https://github.com/cryptomator/pcloud-sdk-java'
     }
 }
 

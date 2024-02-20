@@ -29,7 +29,6 @@ buildscript {
 apply from: rootProject.file('publishing.gradle')
 
 ext {
-    description = "The official Android SDK for integration with pCloud's API."
     artifactId = 'android'
 }
 
