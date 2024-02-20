@@ -41,3 +41,8 @@ ext {
 }
 
 apply from: '../maven-publish.gradle'
+
+def sourcesJarTask = tasks.findByName('sourcesJar')
+if (sourcesJarTask != null) {
+    sourcesJarTask.dependsOn(generateSources)
+}
