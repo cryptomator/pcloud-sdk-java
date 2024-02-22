@@ -1,8 +1,17 @@
-# <img src="docs/logo_color.png" width="72"> pCloud Java SDK
+# Unofficial, unaffiliated and unassociated fork of https://github.com/pCloud/pcloud-sdk-java for internal use in Cryptomator for Android.
 
-The official pCloud SDK for Java & Android for integrating with [ pCloud's API][docs].
+> [!IMPORTANT]  
+> This project is provided under the terms of the [Apache License, Version 2.0;](LICENSE) while it is made available to the public,
+> it is important to note that this repository is **not intended for public use** and therefore **no support** is provided whatsoever.
+>
+> For a project designed for use by the public, please refer to the [original repository.](https://github.com/pCloud/pcloud-sdk-java)
+>
+> An excerpt from the README of the original project is reproduced below for your convenience and to provide proper attribution.  
+> This project is not affiliated, associated, endorsed by, or in any way officially connected with pCloud, or any of its subsidiaries or its affiliates.
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.9.1?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.pcloud.sdk%22)
+---
+
+# Excerpt from the original README
 
 ## Requirements
 
