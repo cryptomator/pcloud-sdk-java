@@ -1,7 +1,7 @@
 ext {
     isCi = "true" == System.getenv('CI')
 
-    versionName = "1.9.1"
+    versionName = "1.9.2-dev.0001"
     versionCode = 13
     groupId = "com.pcloud.sdk"
 }
