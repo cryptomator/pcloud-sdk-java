@@ -52,49 +52,6 @@
   - Save the changes.
   <br/><img src="docs/screenshot_app_configuration.png" width="640"/>
 
-### 4. Install the SDK
-
-#### Java
-
-Grab via Maven:
-
-```xml
-<dependency>
-  <groupId>com.pcloud.sdk</groupId>
-  <artifactId>java-core</artifactId>
-  <version>1.9.1</version>
-  <type>pom</type>
-</dependency>
-```
-or Gradle:
-```groovy
-implementation 'com.pcloud.sdk:java-core:1.9.1'
-```
- [![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.9.1?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/java-core/1.7.0/jar)
-
-#### Android
-
-In addition to the functionality provided by the `java-core` module, Android applications can benefit from platform-specific features.
-The `android` module provides a built-in authorization Activity that handles the application authorization requests.
-For details on usage, refer to the  [AuthorizationActivity](https://pcloud.github.io/pcloud-sdk-java/com/pcloud/sdk/AuthorizationActivity.html) documentation.
-
-
-Grab via Maven:
-
-```xml
-<dependency>
-  <groupId>com.pcloud.sdk</groupId>
-  <artifactId>android</artifactId>
-  <version>1.9.1</version>
-  <type>pom</type>
-</dependency>
-```
-or Gradle:
-```groovy
-implementation 'com.pcloud.sdk:android:1.9.1'
-```
-[![Maven Central](https://img.shields.io/maven-central/v/com.pcloud.sdk/java-core/1.9.1?label=Maven%20Central)](https://search.maven.org/artifact/com.pcloud.sdk/android/1.7.0/jar)
-
 
 ## Basics
 
@@ -284,25 +241,7 @@ remoteFile.download(new DataSink() {
 ```
 
 
-## Samples
-
-### Java
-
-See the code in the `sample` module or the sample application [here](https://github.com/pCloud/pcloud-sdk-java/blob/master/sample/src/main/java/Main.java). The sample explains briefly:
-- [ApiClient](https://pcloud.github.io/pcloud-sdk-java/com/pcloud/sdk/ApiClient.html) instantiation and configuration.
-- File tree browsing and listing folder contents.
-- Copy/move/delete/rename operations on files and folders.
-- File uploads.
-- File downloads.
-- File download link generation.
-
-### Android
-
-- See the code in the `sample-android` module or the sample application [here](https://github.com/pCloud/pcloud-sdk-java/blob/master/sample-android/src/main/java/com/pcloud/sdk/sample/MainActivity.java).
-- The sample contains an application allowing users to request authorization for a registered pCloud API application.
-- The sample gives a hint on how [AuthorizationActivity](https://pcloud.github.io/pcloud-sdk-java/com/pcloud/sdk/AuthorizationActivity.html) should be used.
-
-#License
+# License
 	Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
