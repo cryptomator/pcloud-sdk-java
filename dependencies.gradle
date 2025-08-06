@@ -16,27 +16,27 @@ ext {
     buildToolsVersion = '33.0.2'
     minSdkVersion = 21
     targetSdkVersion = 33
-    kotlin_version = '1.7.10'
-    kotlinCoroutines_version = '1.7.3'
+    kotlin_version = '2.2.0'
+    kotlinCoroutines_version = '1.10.2'
 
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
 
     dep = [
-            androidPlugin        : "com.android.tools.build:gradle:7.2.2",
+            androidPlugin        : "com.android.tools.build:gradle:8.12.0",
             androidMavenPlugin   : "com.github.dcendents:android-maven-gradle-plugin:2.1",
-            appcompat            : "androidx.appcompat:appcompat:1.4.1",
+            appcompat            : "androidx.appcompat:appcompat:1.7.1",
 
             kotlinCompiler       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version",
             kotlinRuntime            : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
             kotlinCoroutines         : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines_version",
 
             supportAnnotations   : "androidx.annotation:annotation:1.3.0",
-            customTabs   : "androidx.browser:browser:1.4.0",
-            localBroadcastManager: 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0',
+            customTabs   : "androidx.browser:browser:1.9.0",
+            localBroadcastManager: 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0',
 
-            okhttp3 : "com.squareup.okhttp3:okhttp:4.9.3",
-            gson : "com.google.code.gson:gson:2.9.1",
+            okhttp3 : "com.squareup.okhttp3:okhttp:5.1.0",
+            gson : "com.google.code.gson:gson:2.13.1",
 
             // Test dependencies
             mockito : "org.mockito:mockito-core:2.28.2",
