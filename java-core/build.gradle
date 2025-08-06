@@ -38,6 +38,8 @@ sourceSets {
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 def generateSources = tasks.register("generateSources", Copy) {
     from 'src/main/java-templates'
@@ -58,4 +60,12 @@ apply from: '../maven-publish.gradle'
 def sourcesJarTask = tasks.findByName('sourcesJar')
 if (sourcesJarTask != null) {
     sourcesJarTask.dependsOn(generateSources)
+}
+tasks.withType(KotlinCompile).configureEach {
+	compilerOptions {
+		jvmTarget.set(JvmTarget.JVM_17)
+	}
+}
+tasks.named("compileKotlin") {
+	dependsOn(tasks.named("generateSources"))
 }

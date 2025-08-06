@@ -32,6 +32,8 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
+    namespace "com.pcloud.sdk.sample"
+
     defaultConfig {
         applicationId "com.pcloud.sdk.sample"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -59,4 +61,3 @@ dependencies {
     implementation project(path: ':java-core')
     implementation project(path: ':android')
 }
-
